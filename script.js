@@ -60,13 +60,24 @@ console.log(`Your score is ${humanScore} and my score is ${computerScore}.`)
 
 
 
-function playGame() {
-    for ( let i = 0; i < 5; i++) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
+// function playGame() {
+//     for ( let i = 0; i < 5; i++) {
+//         const humanSelection = getHumanChoice();
+//         const computerSelection = getComputerChoice();
 
-        playRound(humanSelection, computerSelection);
-    }
-}
+//         playRound(humanSelection, computerSelection);
+//     }
+// }
 
-playGame();
+// playGame();
+
+
+const buttons = document.querySelectorAll("button");
+console.log(buttons);
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        alert(button.id);
+        console.log(button.id)
+    });
+});
