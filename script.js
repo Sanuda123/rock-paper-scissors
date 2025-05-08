@@ -10,9 +10,6 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    return(prompt("Make your choice; Rock, Paper or Scissors").toLowerCase());
-}
 
 let humanScore = 0;
 let computerScore = 0;
@@ -47,37 +44,49 @@ function playRound(humanSelection, computerSelection) {
     }
 
     if (temp == "win") {
-        console.log(`You win! Your${humanSelection} beat my ${computerSelection}!`);
+        editDiv(`You win! Your ${humanSelection} beat my ${computerSelection}!`, ".result");
         humanScore++;
     } else if (temp == "tie") {
-        console.log(`We tie! You and I both picked ${humanSelection}!`)
+        editDiv(`We tie! You and I both picked ${humanSelection}!`, ".result");
     } else {
-        console.log(`LOSER! My ${computerSelection} beat your ${humanSelection}!`)
+        editDiv(`LOSER! My ${computerSelection} beat your ${humanSelection}!`, ".result");
         computerScore++;
     }
-console.log(`Your score is ${humanScore} and my score is ${computerScore}.`)
+editDiv(`Your score is ${humanScore} and my score is ${computerScore}.`, ".score")
 }
 
 
-
-// function playGame() {
-//     for ( let i = 0; i < 5; i++) {
-//         const humanSelection = getHumanChoice();
-//         const computerSelection = getComputerChoice();
-
-//         playRound(humanSelection, computerSelection);
-//     }
-// }
-
-// playGame();
-
-
 const buttons = document.querySelectorAll("button");
-console.log(buttons);
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        alert(button.id);
-        console.log(button.id)
+        const computerSelection = getComputerChoice();
+        playRound(button.id, computerSelection);
+        checkOver();
     });
 });
+
+
+
+function editDiv(string, divClass) {
+    const div = document.querySelector(divClass);
+    div.textContent = string;
+}
+
+function checkOver() {
+    if (humanScore + computerScore == 5) {
+
+        if (humanScore > computerScore) {
+            alert("The game is over. You win.");
+        } else {
+            alert("The game is over. I win");
+        }
+
+        humanScore = 0;
+        computerScore = 0;
+
+
+        editDiv(`Your score is ${humanScore} and my score is ${computerScore}.`, ".score");
+        editDiv(`Press one of the buttons to play!`, ".result");
+    }
+}
